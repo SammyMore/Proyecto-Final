@@ -1,47 +1,47 @@
-// C++ implementation of the approach
-#include <bits/stdc++.h>
+#include <stdio.h>
+#include <stdlib.h>
 using namespace std;
  
 const int MAX = 100;
  
-// Stores the vertices
-int store[MAX], n;
+// Aquí es donde se va a almacenar los vértices
+int almacenar[MAX], n;
  
-// Graph
+// Grafico
 int graph[MAX][MAX];
  
-// Degree of the vertices
+// Grado de los vértices
 int d[MAX];
  
-// Function to check if the given set of
-// vertices in store array is a clique or not
+// Función para comprobar si el conjunto de
+// los vértices en la matriz de la tienda son una pandilla o no
 bool is_clique(int b)
 {
  
-    // Run a loop for all set of edges
+    // Ejecutar un bucle para todo el conjunto de bordes
     for (int i = 1; i < b; i++) {
         for (int j = i + 1; j < b; j++)
  
-            // If any edge is missing
+            // Caso si falta algún borde
             if (graph[store[i]][store[j]] == 0)
                 return false;
     }
     return true;
 }
  
-// Function to find all the sizes
-// of maximal cliques
+// Función para encontrar todos los tamaños
+// de camarillas máximas
 int maxCliques(int i, int l)
 {
-    // Maximal clique size
+    // Tamaño máximo del clique
     int max_ = 0;
  
-    // Check if any vertices from i+1
-    // can be inserted
+    // Aquí comprueba si hay vértices de i + 1
+    // se puede insertar
     for (int j = i + 1; j <= n; j++) {
  
-        // Add the vertex to store
-        store[l] = j;
+        // Agrega el vértice para almacenar
+        almacenar[l] = j;
  
         // If the graph is not a clique of size k then
         // it cannot be a clique by adding another edge
@@ -50,14 +50,14 @@ int maxCliques(int i, int l)
             // Update max
             max_ = max(max_, l);
  
-            // Check if another edge can be added
+            // Verifica si se puede agregar otro borde
             max_ = max(max_, maxCliques(j, l + 1));
         }
     }
     return max_;
 }
  
-// Driver code
+// Principal
 int main()
 {
     int edges[][2] = { { 1, 2 }, { 2, 3 }, { 3, 1 },
