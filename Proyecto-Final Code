@@ -1,78 +1,67 @@
-#include <stdio.h>
-#include <stdlib.h>
-using namespace std;
+# Python3 implementation of the approach
+MAX = 100;
+n = 0;
  
-const int MAX = 100;
+# Stores the vertices
+store = [0] * MAX;
  
-// Aquí es donde se va a almacenar los vértices
-int almacenar[MAX], n;
+# Graph
+graph = [[0 for i in range(MAX)] for j in range(MAX)];
  
-// Grafico
-int graph[MAX][MAX];
+# Degree of the vertices
+d = [0] * MAX;
  
-// Grado de los vértices
-int d[MAX];
+# Function to check if the given set of
+# vertices in store array is a clique or not
+def is_clique(b):
  
-// Función para comprobar si el conjunto de
-// los vértices en la matriz de la tienda son una pandilla o no
-bool is_clique(int b)
-{
+    # Run a loop for all set of edges
+    for i in range(1, b):
+        for j in range(i + 1, b):
  
-    // Ejecutar un bucle para todo el conjunto de bordes
-    for (int i = 1; i < b; i++) {
-        for (int j = i + 1; j < b; j++)
+            # If any edge is missing
+            if (graph[store[i]][store[j]] == 0):
+                return False;
+     
+    return True;
  
-            // Caso si falta algún borde
-            if (graph[store[i]][store[j]] == 0)
-                return false;
-    }
-    return true;
-}
+# Function to find all the sizes
+# of maximal cliques
+def maxCliques(i, l):
  
-// Función para encontrar todos los tamaños
-// de camarillas máximas
-int maxCliques(int i, int l)
-{
-    // Tamaño máximo del clique
-    int max_ = 0;
+    # Maximal clique size
+    max_ = 0;
  
-    // Aquí comprueba si hay vértices de i + 1
-    // se puede insertar
-    for (int j = i + 1; j <= n; j++) {
+    # Check if any vertices from i+1
+    # can be inserted
+    for j in range(i + 1, n + 1):
  
-        // Agrega el vértice para almacenar
-        almacenar[l] = j;
+        # Add the vertex to store
+        store[l] = j;
  
-        // If the graph is not a clique of size k then
-        // it cannot be a clique by adding another edge
-        if (is_clique(l + 1)) {
+        # If the graph is not a clique of size k then
+        # it cannot be a clique by adding another edge
+        if (is_clique(l + 1)):
  
-            // Update max
+            # Update max
             max_ = max(max_, l);
  
-            // Verifica si se puede agregar otro borde
+            # Check if another edge can be added
             max_ = max(max_, maxCliques(j, l + 1));
-        }
-    }
+         
     return max_;
-}
- 
-// Principal
-int main()
-{
-    int edges[][2] = { { 1, 2 }, { 2, 3 }, { 3, 1 },
-                       { 4, 3 }, { 4, 1 }, { 4, 2 } };
-    int size = sizeof(edges) / sizeof(edges[0]);
+     
+# Driver code
+if __name__ == '__main__':
+    edges = [[ 1, 2 ],[ 2, 3 ],[ 3, 1 ],
+           [ 4, 3 ],[ 4, 1 ],[ 4, 2 ]];
+    size = len(edges);
     n = 4;
  
-    for (int i = 0; i < size; i++) {
+    for i in range(size):
         graph[edges[i][0]][edges[i][1]] = 1;
         graph[edges[i][1]][edges[i][0]] = 1;
-        d[edges[i][0]]++;
-        d[edges[i][1]]++;
-    }
- 
-    cout << maxCliques(0, 1);
- 
-    return 0;
-}
+        d[edges[i][0]] += 1;
+        d[edges[i][1]] += 1;
+     
+    print(maxCliques(0, 1));
