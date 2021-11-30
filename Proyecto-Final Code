@@ -54,8 +54,7 @@ def maxCliques(i, l):
      
 # Codigo principal
 if __name__ == '__main__':
-    edges = [[ 1, 2 ],[ 2, 3 ],[ 3, 1 ],
-           [ 4, 3 ],[ 4, 1 ],[ 4, 2 ]];
+    edges = [1,2], [2,3], [3,1], [2,1];
     size = len(edges);
     n = 4;
  
