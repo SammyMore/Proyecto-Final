@@ -1,57 +1,58 @@
-# Python3 implementation of the approach
+# Proyecto Final
 MAX = 100;
 n = 0;
  
-# Stores the vertices
+# Almacena los vértices
 store = [0] * MAX;
  
-# Graph
+# Parte del grafo
 graph = [[0 for i in range(MAX)] for j in range(MAX)];
  
-# Degree of the vertices
+# Grado de los vértices
 d = [0] * MAX;
  
-# Function to check if the given set of
-# vertices in store array is a clique or not
+# Función para comprobar si el conjunto de
+# vértices en la matriz de la tienda es una camarilla o no
 def is_clique(b):
  
-    # Run a loop for all set of edges
+    # Ejecutar un bucle para todo el conjunto de bordes
     for i in range(1, b):
         for j in range(i + 1, b):
  
-            # If any edge is missing
+            
+             # Si falta algún borde
             if (graph[store[i]][store[j]] == 0):
                 return False;
      
     return True;
  
-# Function to find all the sizes
-# of maximal cliques
+# Función para encontrar todos los tamaños
+# de maximos cliques
 def maxCliques(i, l):
  
-    # Maximal clique size
+    # Maximo tamaño de clique
     max_ = 0;
  
-    # Check if any vertices from i+1
-    # can be inserted
+    # Comprueba si hay vértices de i + 1
+    # se puede insertar
     for j in range(i + 1, n + 1):
  
-        # Add the vertex to store
+        # Agrega el vértice para almacenar
         store[l] = j;
  
-        # If the graph is not a clique of size k then
-        # it cannot be a clique by adding another edge
+        # Si el grafo no es un clique de tamaño k entonces
+        # No puede haber un clique agregando otro borde
         if (is_clique(l + 1)):
  
-            # Update max
+            # Actualizar máx.
             max_ = max(max_, l);
  
-            # Check if another edge can be added
+            # Comprueba si se puede agregar otro borde
             max_ = max(max_, maxCliques(j, l + 1));
          
     return max_;
      
-# Driver code
+# Codigo principal
 if __name__ == '__main__':
     edges = [[ 1, 2 ],[ 2, 3 ],[ 3, 1 ],
            [ 4, 3 ],[ 4, 1 ],[ 4, 2 ]];
